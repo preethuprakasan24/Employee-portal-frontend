@@ -1,0 +1,115 @@
+<app-header></app-header>
+
+<div class="d-flex">
+  <div
+    id="sidebar"
+    style="
+      width: 250px;
+      height: 88.5vh;
+      background-color: rgb(6, 6, 115);
+      justify-content: center;
+      display: flex;
+    "
+  >
+    <div class="mt-5 text-light">
+      <a routerLink="/dashboard" style="text-decoration: none; color: white"
+        ><h6>Dashboard</h6></a
+      >
+      <a routerLink="/employee" style="text-decoration: none; color: white"
+        ><h6 class="mt-4">Employee</h6></a
+      >
+    </div>
+  </div>
+  <div class="container-fluid ps-0">
+    <div class="row p-3">
+      <div class="col-md-8">
+        <div
+          style="
+            height: 150px;
+            width: 100%;
+            background-color: #1c8577;
+            display: flex;
+            align-items: center;
+          "
+          class="rounded"
+        >
+          <h4 class="ms-3 text-light">
+            <i class="fa-solid fa-bars me-3"></i> Welcome <span>{{adminDetails.name}}</span>
+          </h4>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <mat-card class="demo-inline-calendar-card">
+              <mat-calendar [(selected)]="selected"></mat-calendar>
+            </mat-card>
+          </div>
+          <div class="col-md-6">
+            <highcharts-chart
+              [Highcharts]="Highcharts"
+              [options]="chartOptions"
+              style="width: 100%; height: 400px; display: block;"
+            ></highcharts-chart>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          style="height: 340px; width: 100%; background-color: aqua"
+          class="rounded d-flex justify-content-center align-items-center flex-column"
+        >
+          <div *ngIf="editStatus" class="d-flex justify-content-center align-items-center flex-column">
+                            <img [src]="profileImg" alt="no image" style="width: 170px; height: 170px; border-radius: 50%;">
+                            <button class="btn text-primary" (click)="statusChange()">Edit admin details<i class="fa-solid fa-pen-nib ms-2"></i></button>
+                        </div>
+
+         <div *ngIf="!editStatus"
+            class="d-flex justify-content-center align-items-center flex-column w-100"
+          >
+            <h5 class="mt-5 mb-1 text-light">Edit Admin Details</h5>
+            <label for="profile">
+              <input type="file" id="profile" style="display: none;" (change)="getFile($event)">
+              <img
+                [src]="profileImg"
+                alt="no image"
+                style="width: 110px; height: 110px; border-radius: 50%"
+              />
+            </label>
+            <form class="p-4 w-100">
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Admin name" [(ngModel)]="adminDetails.name"
+                  name="adName" required pattern="^[a-zA-Z]{3,}$"
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Admin Password"
+                  [(ngModel)]="adminDetails.password"
+                  name="adpswd" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,}$" #admPswd="ngModel"
+                />
+                <span class="text-danger" *ngIf="admPswd.invalid && admPswd.touched">*invalid Input</span>
+              </div>
+              <div class="mb-3 d-flex justify-content-between">
+                <button class="btn btn-warning" (click)="statusChange()">Cancel</button>
+                <button class="btn btn-success" (click)="updateAdmin()">Update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div
+          style="width: 100%; height: 150px; background-color: blueviolet"
+          class="mt-3 rounded shadow d-flex justify-content-center align-items-center"
+        >
+          <h3 class="text-light">
+            <i class="fa-solid fa-users me-3"></i>Employee Count : 9
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

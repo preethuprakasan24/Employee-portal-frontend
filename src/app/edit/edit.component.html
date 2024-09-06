@@ -1,0 +1,52 @@
+<app-header></app-header>
+
+    <div class="d-flex">
+        <div id="sidebar" style="width: 250px; height: 88.5vh; background-color: rgb(6,6,115); justify-content: center; display: flex;">
+            <div class="mt-5 text-light">
+                <a routerLink="/dashboard" style="text-decoration: none; color: white;"><h4>Dashboard</h4></a>
+                <a routerLink="/employee"  style="text-decoration: none; color: white;"><h4 class="mt-4">Employee</h4></a>
+            </div>
+        </div>
+        <div class="container-fluid ps-0" style="background-color: lightgrey;">
+           <div class="row d-flex justify-content-center flex-column">
+            <h4 class="text-center mt-4 mb-4">Update User Details</h4>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 p-5 shadow">
+                    <form #editForm="ngForm" >
+                        <div class="mb-3">
+                            <input [(ngModel)]="Employee.id" name="empid" type="text" placeholder="User Id" class="form-control" readonly>
+                            
+                        </div>
+                        <div class="mb-3">
+                            <input [(ngModel)]="Employee.name" name="empname" type="text" placeholder="Username" class="form-control" required pattern="^[a-zA-Z]*$" #empName = "ngModel">
+                            <span class="text-danger" *ngIf="empName.invalid && empName.touched">*invalid Input</span>
+                        </div>
+                        <div class="mb-3">
+                            <input [(ngModel)]="Employee.email" name="empmail" type="text" placeholder="Email" class="form-control" required email #empEmail = "ngModel">
+                            <span class="text-danger" *ngIf="empEmail.invalid && empEmail.touched">*invalid Input</span>
+                        </div>
+                        <div class="mb-3 form-floating">
+                            <!-- <input type="text" placeholder="Status" class="form-control"> -->
+                            <select [(ngModel)]="Employee.status" name="empstatus" class="form-select" id="floatingSelect" aria-label="floating label select example" #empStatus = "ngModel" required>
+                                <option value=""></option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                              </select>
+                              <label for="floatingSelect">Status</label>
+                              <span class="text-danger" *ngIf="empStatus.invalid && empStatus.touched">*invalid Input</span>
+                        </div>
+                        <div class="mb-3 d-flex ">
+                            <button (click)="cancel(Employee.id)" class="btn btn-warning text-dark me-3">Cancel</button>
+                            <button (click)="edit(Employee.id)" type="button" [disabled]="editForm.invalid" class="btn btn-success text-light">Update</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+           </div>
+        </div>
+   
+
+
+

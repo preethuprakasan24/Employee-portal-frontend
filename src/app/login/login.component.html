@@ -1,0 +1,29 @@
+
+<app-header></app-header>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <img src="https://cdn.dribbble.com/users/846207/screenshots/9192312/media/c821e24ed3cc26b9e43e2decfdee20ce.gif" alt="no image" class="w-100" >
+        </div>
+        <div class="col-md-5 px-3 d-flex justify-content-center align-items-center">
+            <form #loginForm ="ngForm" (ngSubmit)="login()" class="shadow p-4 w-100" style="background-image: linear-gradient(to right, rgb(196, 194, 194), rgb(126, 102, 170));">
+                <h3 class="text-center text-light my-4">Login</h3>
+                <div class="mb-3">
+                    <input type="text" placeholder="Email Id" class="form-control" name="mail" [(ngModel)]="email" required email #admMail="ngModel">
+                    <span *ngIf="admMail.invalid && admMail.touched" class="text-danger">*invalid Input</span>
+                </div>
+                <div class="mb-3">
+                    <input type="text" placeholder="Password" class="form-control" name="pswd" [(ngModel)]="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,}$" #admPswd="ngModel">
+                    <span class="text-danger" *ngIf="admPswd.invalid && admPswd.touched">*invalid Input</span>
+                </div>
+                <div class="mb-3">
+                    <button [disabled]="loginForm.invalid" class="btn  w-100" type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
